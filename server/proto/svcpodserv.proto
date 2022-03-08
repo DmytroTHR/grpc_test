@@ -1,0 +1,15 @@
+syntax = "proto3";
+package svcpodserv;
+option go_package = "./;proto";
+
+service SvcPodServ {
+    rpc AskForHelp(Request) returns (Response) {}
+}
+
+message Request {
+    string message = 1;
+}
+
+message Response {
+    string message = 1;
+}

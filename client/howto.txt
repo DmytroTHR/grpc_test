@@ -1,0 +1,4 @@
+Docker build:
+    docker build . -t svcpodclient:v1
+Docker run:
+    docker run --rm --name=svcpodclient -p 8888:8888 --link svcpodserv:svcpodserv -d svcpodclient:v1

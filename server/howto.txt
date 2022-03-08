@@ -1,0 +1,4 @@
+Docker build:
+    docker build . -t svcpodserv:v1
+Docker run:
+    docker run --rm --name=svcpodserv -d svcpodserv:v1
