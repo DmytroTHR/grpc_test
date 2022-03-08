@@ -2,3 +2,12 @@ Docker build:
     docker build . -t svcpodserv:v1
 Docker run:
     docker run --rm --name=svcpodserv -d svcpodserv:v1
+Docker push:
+    docker login --name=dmytrothr
+    docker tag svcpodserv:v1 dmytrothr/svcpodserv:v1-release
+    docker push dmytrothr/svcpodserv:v1-release
+
+Kubernetes pod run:
+    kubectl run svcserver --image dmytrothr/svcpodserv:v1
+Kubernetes get pod IP:
+    kubectl describe pod svcserver|grep IP 

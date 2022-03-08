@@ -2,3 +2,12 @@ Docker build:
     docker build . -t svcpodclient:v1
 Docker run:
     docker run --rm --name=svcpodclient -p 8888:8888 --link svcpodserv:svcpodserv -d svcpodclient:v1
+Docker push:
+    docker login --name=dmytrothr
+    docker tag svcpodclient:v1 dmytrothr/svcpodclient:v1-release
+    docker push dmytrothr/svcpodclient:v1-release
+
+Kubernetes pod run:
+    kubectl run svcclient --image=dmytrothr/svcpodclient:v1 --port=8888 --env="MyServiceName=172.17.0.4" //server pod IP (kubectl describe pod svcserv)
+Kubernetes service start:    
+    kubectl expose pod svcclient --type=NodePort --name=svcclient
