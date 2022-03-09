@@ -1,0 +1,17 @@
+#Example of pod creation
+
+apiVersion: v1
+kind: Pod
+metadata:
+        name: clientpod
+        labels:
+                app: client
+spec:
+        containers:
+              - name: clientpod
+                image: dmytrothr/svcpodclient:v1
+                env:
+                        - name: MyServiceName
+                          value: serversvc
+                ports:
+                        - containerPort: 8888
