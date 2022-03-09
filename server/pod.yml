@@ -1,0 +1,15 @@
+#Example of pod definition
+
+apiVersion: v1
+kind: Pod
+metadata:
+        name: serverpod
+        labels:
+                app: server
+spec:
+        containers:
+                - name: serverpod
+                  image: dmytrothr/svcpodserv:v1
+                  ports:
+                          - containerPort: 8989
+

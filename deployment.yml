@@ -1,0 +1,81 @@
+#Server Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      name: server-pod
+      labels:
+        app: server
+    spec: 
+      containers:
+        - name: server-container
+          image: dmytrothr/svcpodserv:v1
+          ports:
+            - containerPort: 8989
+
+---
+
+#Client Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      name: client-pod
+      labels:
+        app: client
+    spec:
+      containers:
+        - name: client-container
+          image: dmytrothr/svcpodclient:v1
+          env:
+            - name: MyServiceName
+              value: serversvc
+          ports:
+            - containerPort: 8888
+
+---
+
+#Server Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: serversvc
+spec:
+  #type: ClusterIP
+  selector:
+    app: server
+  ports:
+    - name: http
+      port: 8989
+      targetPort: 8989
+
+---
+
+#Client Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: clientsvc
+spec:
+  type: NodePort
+  selector:
+    app: client
+  ports:
+    - name: http
+      port: 8888
+      targetPort: 8888
+      nodePort: 32032

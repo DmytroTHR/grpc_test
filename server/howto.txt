@@ -11,3 +11,8 @@ Kubernetes pod run:
     kubectl run svcserver --image dmytrothr/svcpodserv:v1
 Kubernetes get pod IP:
     kubectl describe pod svcserver|grep IP 
+
+Kubernetes Deployment run:
+    kubectl create deployment servsvc --image=dmytrothr/svcpodserv:v1
+Kubernetes Deployment expose:
+    kubectl expose deployment servsvc --type=ClusterIp --port=8989 --target-port=8989 --name=servsvc
