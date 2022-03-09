@@ -11,3 +11,8 @@ Kubernetes pod run:
     kubectl run svcclient --image=dmytrothr/svcpodclient:v1 --port=8888 --env="MyServiceName=172.17.0.4" //server pod IP (kubectl describe pod svcserv)
 Kubernetes service start:    
     kubectl expose pod svcclient --type=NodePort --name=svcclient
+
+Kubernetes Deployment run:
+    kubectl create deployment clientsvc --image=dmytrothr/svcpodclient:v1
+Kubernetes Deployment expose:
+    kubectl expose deployment --type=NodePort --port=8888 --target-port=8888 --name=clientsvc
